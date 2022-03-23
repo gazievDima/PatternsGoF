@@ -7,6 +7,6 @@ public abstract class Patterns {
     }
 
     public static void printTitle(String type) {
-        println("\n\n===== SHOW RESULT WORK " + type + " PATTERNS =====\n");
+        println("\n===== SHOW RESULT WORK " + type + " PATTERNS =====\n");
     }
 }

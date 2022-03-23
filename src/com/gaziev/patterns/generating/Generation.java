@@ -7,8 +7,7 @@ import com.gaziev.patterns.generating.factory.abstract_factory.Car;
 import com.gaziev.patterns.generating.factory.abstract_factory.CarFactory;
 import com.gaziev.patterns.generating.factory.factory_method.Pizza;
 import com.gaziev.patterns.generating.factory.factory_method.PizzaFactory;
-import com.gaziev.patterns.generating.observer.People;
-import com.gaziev.patterns.generating.observer.WeatherStation;
+import com.gaziev.patterns.generating.prototype.Person;
 import com.gaziev.patterns.generating.singleton.NetworkService;
 
 public class Generation extends Patterns {
@@ -16,7 +15,6 @@ public class Generation extends Patterns {
     public static void show() {
         printTitle("GENERATION");
         exampleSingleton();
-        exampleObserver();
         exampleBuilder();
         exampleFactoryMethod();
         exampleAbstractFactory();
@@ -31,20 +29,6 @@ public class Generation extends Patterns {
 
         NetworkService serviceTWO = NetworkService.getInstance();
         println(serviceTWO.getCache());
-        println("");
-    }
-
-    private static void exampleObserver() {
-        println("//use observer pattern.");
-
-        WeatherStation station = new WeatherStation("+23");
-        People man = new People("Dima", 28);
-        println("man temperature: " + man.getTemperature());
-
-        station.observe(man);
-        println("man temperature: " + man.getTemperature());
-        station.setWeather("-13");
-        println("man temperature: " + man.getTemperature());
         println("");
     }
 
@@ -93,6 +77,10 @@ public class Generation extends Patterns {
     private static void examplePrototype() {
         println("//use prototype pattern.");
 
+        Person person1 = new Person("Alice", 25);
+        println(person1.toString());
+        Person personClone = person1.clone();
+        println(personClone.toString());
         println("");
     }
 

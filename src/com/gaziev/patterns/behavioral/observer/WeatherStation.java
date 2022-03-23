@@ -1,4 +1,4 @@
-package com.gaziev.patterns.generating.observer;
+package com.gaziev.patterns.behavioral.observer;
 
 import java.util.LinkedList;
 import java.util.List;

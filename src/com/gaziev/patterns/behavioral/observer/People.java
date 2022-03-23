@@ -1,4 +1,4 @@
-package com.gaziev.patterns.generating.observer;
+package com.gaziev.patterns.behavioral.observer;
 
 public class People implements Observer {
     private final String name;
