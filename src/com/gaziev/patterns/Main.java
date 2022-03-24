@@ -6,11 +6,9 @@ import com.gaziev.patterns.structural.Structural;
 
 public class Main {
 
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) {
         Generation.show();
         Structural.show();
         Behavioral.show();
-
     }
 }
-
