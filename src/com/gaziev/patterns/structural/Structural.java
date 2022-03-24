@@ -16,6 +16,15 @@ import com.gaziev.patterns.structural.decorator.robots.ClassicRobot;
 import com.gaziev.patterns.structural.decorator.robots.HardRobot;
 import com.gaziev.patterns.structural.decorator.robots.LightRobot;
 import com.gaziev.patterns.structural.facade.Services;
+import com.gaziev.patterns.structural.flyweight.Developer;
+import com.gaziev.patterns.structural.flyweight.DeveloperFactory;
+import com.gaziev.patterns.structural.flyweight.Project;
+import com.gaziev.patterns.structural.proxy.LocalStorage;
+import com.gaziev.patterns.structural.proxy.ProxyStorage;
+import com.gaziev.patterns.structural.proxy.RemoteStorage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Structural extends Patterns {
 
@@ -26,6 +35,8 @@ public class Structural extends Patterns {
         exampleComposite();
         exampleDecorator();
         exampleFacade();
+        exampleFlyweight();
+        exampleProxy();
     }
 
     private static void exampleAdapter() {
@@ -104,4 +115,56 @@ public class Structural extends Patterns {
         println("result job services: " + result);
         println("");
     }
+
+    private static void exampleFlyweight() {
+        println("//use flyweight pattern.");
+
+        List<Developer> developers = new ArrayList<Developer>();
+        DeveloperFactory developerFactory = new DeveloperFactory();
+
+        developers.add(developerFactory.getDeveloper("java"));
+        developers.add(developerFactory.getDeveloper("java"));
+        developers.add(developerFactory.getDeveloper("java"));
+
+        developers.add(developerFactory.getDeveloper("go"));
+        developers.add(developerFactory.getDeveloper("go"));
+
+        developers.add(developerFactory.getDeveloper("python"));
+        developers.add(developerFactory.getDeveloper("python"));
+        developers.add(developerFactory.getDeveloper("python"));
+
+        Project project = new Project(developers);
+        project.startProject();
+        println("");
+    }
+
+    private static void exampleProxy() {
+        println("//use proxy pattern.");
+
+        println("request data from remote storage by ProxyStorage...");
+
+        ProxyStorage proxyStorage = new ProxyStorage(
+                new LocalStorage(),
+                new RemoteStorage()
+        );
+        println(proxyStorage.getData());
+        println("");
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
