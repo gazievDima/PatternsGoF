@@ -19,9 +19,8 @@ import com.gaziev.patterns.structural.facade.Services;
 import com.gaziev.patterns.structural.flyweight.Developer;
 import com.gaziev.patterns.structural.flyweight.DeveloperFactory;
 import com.gaziev.patterns.structural.flyweight.Project;
-import com.gaziev.patterns.structural.proxy.LocalStorage;
-import com.gaziev.patterns.structural.proxy.ProxyStorage;
-import com.gaziev.patterns.structural.proxy.RemoteStorage;
+import com.gaziev.patterns.structural.proxy.RemoteApi;
+import com.gaziev.patterns.structural.proxy.RemoteApiProxy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,13 +140,9 @@ public class Structural extends Patterns {
     private static void exampleProxy() {
         println("//use proxy pattern.");
 
-        println("request data from remote storage by ProxyStorage...");
-
-        ProxyStorage proxyStorage = new ProxyStorage(
-                new LocalStorage(),
-                new RemoteStorage()
-        );
-        println(proxyStorage.getData());
+        RemoteApiProxy remoteApiProxy = new RemoteApiProxy();
+        println(remoteApiProxy.saveData());
+        println(remoteApiProxy.getData());
         println("");
     }
 }
