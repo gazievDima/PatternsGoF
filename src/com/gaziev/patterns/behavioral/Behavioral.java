@@ -12,8 +12,18 @@ import com.gaziev.patterns.behavioral.command.devs.JavaDeveloper;
 import com.gaziev.patterns.behavioral.command.devs.PythonDeveloper;
 import com.gaziev.patterns.behavioral.iterator.MyCollection;
 import com.gaziev.patterns.behavioral.iterator.Square;
+import com.gaziev.patterns.behavioral.mediator.Button;
+import com.gaziev.patterns.behavioral.mediator.ButtonMediator;
+import com.gaziev.patterns.behavioral.mediator.Mediator;
+import com.gaziev.patterns.behavioral.mediator.RadioButton;
 import com.gaziev.patterns.behavioral.observer.People;
 import com.gaziev.patterns.behavioral.observer.WeatherStation;
+import com.gaziev.patterns.behavioral.visitor.Drawing;
+import com.gaziev.patterns.behavioral.visitor.Rotate;
+import com.gaziev.patterns.behavioral.visitor.Visitor;
+import com.gaziev.patterns.behavioral.visitor.shapes.RoundShape;
+import com.gaziev.patterns.behavioral.visitor.shapes.Shape;
+import com.gaziev.patterns.behavioral.visitor.shapes.SquareShape;
 
 public class Behavioral extends Patterns {
 
@@ -23,6 +33,8 @@ public class Behavioral extends Patterns {
         exampleChain();
         exampleCommand();
         exampleIterator();
+        exampleVisitor();
+        exampleMediator();
     }
 
     private static void exampleObserver() {
@@ -80,7 +92,7 @@ public class Behavioral extends Patterns {
         myCollection.add(new Square("blue"));
         myCollection.add(new Square("red"));
 
-        while(myCollection.hasNext()) {
+        while (myCollection.hasNext()) {
             System.out.println(myCollection.getNext());
         }
 
@@ -90,6 +102,43 @@ public class Behavioral extends Patterns {
         while (myCollection.hasNext()) {
             System.out.println(myCollection.getNext());
         }
+        println("");
+    }
+
+    private static void exampleVisitor() {
+        println("//use visitor pattern.");
+
+        Shape round = new RoundShape("yellow", "round");
+        round.draw();
+
+        Shape square = new SquareShape("blue", "square");
+        square.draw();
+
+        Visitor visitorRotate = new Rotate();
+        round.action(visitorRotate);
+        square.action(visitorRotate);
+
+        Visitor visitorDrawing = new Drawing();
+        round.action(visitorDrawing);
+        square.action(visitorDrawing);
+        println("");
+    }
+
+    private static void exampleMediator() {
+        println("//use mediator pattern.");
+
+        RadioButton button1 = new Button("ONE", false);
+        RadioButton button2 = new Button("TWO", false);
+        RadioButton button3 = new Button("THREE", false);
+
+        RadioButton[] buttons = {button1, button2, button3};
+
+        Mediator buttonMediator = new ButtonMediator(buttons);
+        buttonMediator.select(button1);
+        System.out.println("====");
+        buttonMediator.select(button2);
+        System.out.println("====");
+        buttonMediator.select(button3);
         println("");
     }
 }
