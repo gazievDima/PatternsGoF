@@ -16,8 +16,24 @@ import com.gaziev.patterns.behavioral.mediator.Button;
 import com.gaziev.patterns.behavioral.mediator.ButtonMediator;
 import com.gaziev.patterns.behavioral.mediator.Mediator;
 import com.gaziev.patterns.behavioral.mediator.RadioButton;
+import com.gaziev.patterns.behavioral.memento.devs.AndroidDeveloper;
+import com.gaziev.patterns.behavioral.memento.devs.Developer;
+import com.gaziev.patterns.behavioral.memento.project.AndroidProject;
+import com.gaziev.patterns.behavioral.memento.project.Project;
+import com.gaziev.patterns.behavioral.memento.repositories.AndroidRepository;
+import com.gaziev.patterns.behavioral.memento.repositories.Memento;
 import com.gaziev.patterns.behavioral.observer.People;
 import com.gaziev.patterns.behavioral.observer.WeatherStation;
+import com.gaziev.patterns.behavioral.state.machine.CocktailMachine;
+import com.gaziev.patterns.behavioral.state.machine.CoffeeMachine;
+import com.gaziev.patterns.behavioral.state.machine.Machine;
+import com.gaziev.patterns.behavioral.state.state.ChooseDrink;
+import com.gaziev.patterns.behavioral.strategy.devs.*;
+import com.gaziev.patterns.behavioral.strategy.projects.ServerProject;
+import com.gaziev.patterns.behavioral.strategy.projects.WebSiteProject;
+import com.gaziev.patterns.behavioral.template.NewsPage;
+import com.gaziev.patterns.behavioral.template.WebSite;
+import com.gaziev.patterns.behavioral.template.WelcomePage;
 import com.gaziev.patterns.behavioral.visitor.Drawing;
 import com.gaziev.patterns.behavioral.visitor.Rotate;
 import com.gaziev.patterns.behavioral.visitor.Visitor;
@@ -35,6 +51,10 @@ public class Behavioral extends Patterns {
         exampleIterator();
         exampleVisitor();
         exampleMediator();
+        exampleMemento();
+        exampleState();
+        exampleTemplateMethod();
+        exampleStrategy();
     }
 
     private static void exampleObserver() {
@@ -141,4 +161,76 @@ public class Behavioral extends Patterns {
         buttonMediator.select(button3);
         println("");
     }
+
+    private static void exampleMemento() {
+        println("//use memento pattern.");
+
+        Developer developer = new AndroidDeveloper();
+        Memento repository = new AndroidRepository();
+        Project project = new AndroidProject("Android Project");
+
+        project.updateCode(developer.writeCode(1.0f));
+        System.out.println(project);
+
+        repository.save(project.clone());
+
+        project.updateCode(developer.writeCode(2.0f));
+        System.out.println(project);
+
+        project = repository.load();
+        System.out.println(project);
+        println("");
+    }
+
+    private static void exampleState() {
+        println("//use state pattern.");
+
+        Machine coffeeMachine = new CoffeeMachine("кофе", new ChooseDrink());
+        Machine cocktailMachine = new CocktailMachine("коктейль", new ChooseDrink());
+
+        for(int i = 0; i < 3; i++) {
+            coffeeMachine.doWork();
+            coffeeMachine.changeState();
+        }
+
+        for(int i = 0; i < 3; i++) {
+            cocktailMachine.doWork();
+            cocktailMachine.changeState();
+        }
+        println("");
+    }
+
+    private static void exampleTemplateMethod() {
+        println("//use template method pattern.");
+
+        WebSite newsPage = new NewsPage("News page");
+        WebSite welcomePage = new WelcomePage("Welcome page");
+
+        newsPage.showPage();
+        println("");
+        welcomePage.showPage();
+        println("");
+    }
+
+    private static void exampleStrategy() {
+        println("//use strategy pattern.");
+
+        FullstackDev fullstackDev = new FullstackDev("Artem");
+        BackendDev backendDev1 = new BackendDev("Dima");
+        WebDev webDev1 = new WebDev("Anna");
+
+        ServerProject serverProject = new ServerProject();
+        WebSiteProject webSiteProject = new WebSiteProject();
+
+
+        serverProject.hiredDev(backendDev1);
+        serverProject.hiredDev(fullstackDev);
+        serverProject.doWork();
+
+        webSiteProject.hiredDev(webDev1);
+        webSiteProject.hiredDev(fullstackDev);
+        webSiteProject.doWork();
+        println("");
+    }
+
 }
