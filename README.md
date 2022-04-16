@@ -4,4 +4,4 @@
 - Structural
 - Behavioral
 
-+ using JUnit4 tests with Library Mockito
+also using JUnit4 tests with Library Mockito
