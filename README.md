@@ -3,5 +3,3 @@
 - Generative
 - Structural
 - Behavioral
-
-also using JUnit4 tests with Library Mockito
